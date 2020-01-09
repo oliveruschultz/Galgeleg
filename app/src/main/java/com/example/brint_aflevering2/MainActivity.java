@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         } else if (v == listeKnap) {
             Intent wordListIntet = new Intent(this, ListActivity.class);
-            startActivity(wordListIntet);
+            startActivity(wordListIntet); //ingen activity?
         }
 
         gæt.setText("");
