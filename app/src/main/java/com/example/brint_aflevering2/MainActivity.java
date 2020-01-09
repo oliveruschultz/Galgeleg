@@ -1,13 +1,9 @@
 package com.example.brint_aflevering2;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,13 +11,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.nio.channels.InterruptedByTimeoutException;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Galgelogik spil = new Galgelogik();
     private EditText gæt;
-    private Button knap1, givOp, knap3, knapDR;
+    private Button knap1, givOp, genstart, knapDR, listeKnap;
     private TextView ord, tvBrugteBogstaver,textViewW,textViewL;
     private ImageView imageView;
     int wincounter, losscounter;
@@ -43,16 +39,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         knap1.setOnClickListener(this);
         givOp = findViewById(R.id.button2);
         givOp.setOnClickListener(this);
-        knap3 = findViewById(R.id.button3);
-        knap3.setOnClickListener(this);
+        genstart = findViewById(R.id.button3);
+        genstart.setOnClickListener(this);
         knapDR = findViewById(R.id.button4);
         knapDR.setOnClickListener(this);
+        listeKnap = findViewById(R.id.button5);
+        listeKnap.setOnClickListener(this);
+
 
         ord.setText(spil.getSynligtOrd());
-
-
-
-
 
     }
 
@@ -84,18 +79,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 winIntent.putExtra("winningWord",spil.getOrdet());
                 winIntent.putExtra("antalGæt",spil.getBrugteBogstaver().size());
                 startActivity(winIntent);
-                //Toast.makeText(this, "Du vandt", Toast.LENGTH_SHORT).show();
                  wincounter++;
-                 knap3.setVisibility(View.VISIBLE);
+                 genstart.setVisibility(View.VISIBLE);
                  textViewW.setText("W = " + wincounter);
              }
             else if (spil.erSpilletTabt()){
                 Intent loseIntent = new Intent(this, LosingActivity.class);
                 loseIntent.putExtra("losingWord",spil.getOrdet());
                 startActivity(loseIntent);
-                     //Toast.makeText(this, "Du har tabt", Toast.LENGTH_SHORT).show();
                      losscounter++;
-                     knap3.setVisibility(View.VISIBLE);
+                     genstart.setVisibility(View.VISIBLE);
                      textViewL.setText("L = "+losscounter);
             }
             tvBrugteBogstaver.setText(currentWord);
@@ -103,16 +96,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (v == givOp) {
             Intent loseIntent = new Intent(this, LosingActivity.class);
             losscounter++;
-            knap3.setVisibility(View.VISIBLE);
+            genstart.setVisibility(View.VISIBLE);
             textViewL.setText("L = "+losscounter);
             loseIntent.putExtra("losingWord",spil.getOrdet());
             startActivity(loseIntent);
 
-            //Toast.makeText(this, spil.getOrdet(), Toast.LENGTH_SHORT).show();
-        } else if (v == knap3) {
+        } else if (v == genstart) {
             spil.nulstil();
             imageViewChanger();
-            knap3.setVisibility(View.INVISIBLE);
+            genstart.setVisibility(View.INVISIBLE);
             ord.setText(spil.getSynligtOrd());
             tvBrugteBogstaver.setText("");
             Toast.makeText(this, "Du har genstartet spillet", Toast.LENGTH_SHORT).show();
@@ -134,7 +126,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     knapDR.setText(result.toString());
                     ord.setText(spil.getSynligtOrd());
                     tvBrugteBogstaver.setText("");
-                    //gameOver = false;
                     imageViewChanger();
                     final Handler handler = new Handler ();
                     handler.postDelayed(new Runnable(){
@@ -146,7 +137,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }.execute();
             Toast.makeText(this, "DR ord hentet", Toast.LENGTH_SHORT).show();
+
+        } else if (v == listeKnap) {
+            Intent wordListIntet = new Intent(this, ListActivity.class);
+            startActivity(wordListIntet);
         }
+
         gæt.setText("");
     }
 
@@ -182,13 +178,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void setOrdListe(){
-        /*
-        for (int i = 0; i == spil.getMuligeord().getSize; i++; ((
-            textView = textView + "/n" + spil.getMuligeOrd().get(i)
-        ))
-
-         */
-    }
 }
 

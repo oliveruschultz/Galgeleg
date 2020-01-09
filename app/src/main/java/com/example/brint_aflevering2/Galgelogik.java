@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class Galgelogik {
     /** AHT afprøvning er muligeOrd synlig på pakkeniveau */
-    ArrayList<String> muligeOrd = new ArrayList<String>();
+    static ArrayList<String> muligeOrd = new ArrayList<String>();
     private String ordet;
     private ArrayList<String> brugteBogstaver = new ArrayList<String>();
     private String synligtOrd;
@@ -22,7 +22,6 @@ public class Galgelogik {
 
     public Galgelogik() {
         muligeOrd.add("a");
-        /*
         muligeOrd.add("bil");
         muligeOrd.add("computer");
         muligeOrd.add("programmering");
@@ -32,7 +31,6 @@ public class Galgelogik {
         muligeOrd.add("skovsnegl");
         muligeOrd.add("solsort");
         muligeOrd.add("nitten");
-         */
         nulstil();
     }
 
@@ -106,11 +104,9 @@ public class Galgelogik {
             sidsteBogstavVarKorrekt = true;
             System.out.println("Bogstavet var korrekt: " + bogstav);
         } else {
-            // Vi gættede på et bogstav der ikke var i ordet.
             sidsteBogstavVarKorrekt = false;
             System.out.println("Bogstavet var IKKE korrekt: " + bogstav);
             antalForkerteBogstaver = antalForkerteBogstaver + 1;
-            // Redigeret kode fra < 6 til == 6.
             if (antalForkerteBogstaver == 6) {
                 spilletErTabt = true;
             }
@@ -189,13 +185,13 @@ public class Galgelogik {
 
         muligeOrd.clear();
         for (String linje : data.split("\n")) {
-            if (linjeNr<20) System.out.println("linje = " + linje); // udskriv de første 20 linjer
-            if (linjeNr++ < 1 ) continue; // Spring første linje med kolonnenavnene over
-            String[] felter = linje.split(",", -1);// -1 er for at beholde tomme indgange, f.eks. bliver ",,," splittet i et array med 4 tomme strenge
+            if (linjeNr<20) System.out.println("linje = " + linje);
+            if (linjeNr++ < 1 ) continue;
+            String[] felter = linje.split(",", -1);
             String sværhedsgrad = felter[0].trim();
             String ordet = felter[1].trim().toLowerCase();
-            if (ordet.isEmpty()) continue; // spring over linjer med tomme ord
-            if (!sværhedsgrader.contains(sværhedsgrad)) continue; // filtrér på sværhedsgrader
+            if (ordet.isEmpty()) continue;
+            if (!sværhedsgrader.contains(sværhedsgrad)) continue;
             muligeOrd.add(ordet);
         }
 
