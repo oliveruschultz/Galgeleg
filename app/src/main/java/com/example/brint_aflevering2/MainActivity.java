@@ -6,6 +6,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,13 +21,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Galgelogik spil = new Galgelogik();
     private EditText gæt;
-    private Button knap1, givOp, knap3;
-    private TextView ord, tvBrugteBogstaver,textViewW,textViewL, info;
+    private Button knap1, givOp, knap3, knapDR;
+    private TextView ord, tvBrugteBogstaver,textViewW,textViewL;
     private ImageView imageView;
     int wincounter, losscounter;
 
-
-    @SuppressLint("StaticFieldLeak")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         spil.nulstil();
@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         textViewW = findViewById(R.id.textViewW);
         textViewL = findViewById(R.id.textViewL);
         imageView = findViewById(R.id.imageView);
-        //info = findViewById(R.id.info);
 
         knap1 = findViewById(R.id.button1);
         knap1.setOnClickListener(this);
@@ -46,28 +45,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         givOp.setOnClickListener(this);
         knap3 = findViewById(R.id.button3);
         knap3.setOnClickListener(this);
+        knapDR = findViewById(R.id.button4);
+        knapDR.setOnClickListener(this);
 
         ord.setText(spil.getSynligtOrd());
 
-        //info.setText("Henter ord fra DRs server..");
-        new AsyncTask() {
 
-            @Override
-            protected Object doInBackground(Object... arg0) {
-                try {
-                    spil.hentOrdFraDr();
-                    return "Ordene blev korrekt hentet fra DR's server";
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    return "Ordene blev ikke hentet korrekt: "+e;
-                }
-            }
 
-            @Override
-            protected void onPostExecute(Object resultat) {
-                //info.setText("resultat: \n" + resultat);
-            }
-        }.execute();
+
 
     }
 
@@ -97,6 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else if (spil.erSpilletVundet()) {
                 Intent winIntent = new Intent(this, WinningActivity.class);
                 winIntent.putExtra("winningWord",spil.getOrdet());
+                winIntent.putExtra("antalGæt",spil.getBrugteBogstaver().size());
                 startActivity(winIntent);
                 //Toast.makeText(this, "Du vandt", Toast.LENGTH_SHORT).show();
                  wincounter++;
@@ -116,6 +102,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         } else if (v == givOp) {
             Intent loseIntent = new Intent(this, LosingActivity.class);
+            losscounter++;
+            knap3.setVisibility(View.VISIBLE);
+            textViewL.setText("L = "+losscounter);
             loseIntent.putExtra("losingWord",spil.getOrdet());
             startActivity(loseIntent);
 
@@ -127,14 +116,43 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             ord.setText(spil.getSynligtOrd());
             tvBrugteBogstaver.setText("");
             Toast.makeText(this, "Du har genstartet spillet", Toast.LENGTH_SHORT).show();
+        } else if (v == knapDR){
+            new AsyncTask() {
+                @Override
+                protected Object doInBackground(Object... arg0) {
+                    try {
+                        spil.hentOrdFraDr();
+                        return "Success";
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return "Fail: " + e;
+                    }
+                }
+
+                @Override
+                protected void onPostExecute(Object result) {
+                    knapDR.setText(result.toString());
+                    ord.setText(spil.getSynligtOrd());
+                    tvBrugteBogstaver.setText("");
+                    //gameOver = false;
+                    imageViewChanger();
+                    final Handler handler = new Handler ();
+                    handler.postDelayed(new Runnable(){
+                        @Override
+                        public void run(){
+                            knapDR.setText("nyt DR ord");
+                        }
+                    }, 5000);
+                }
+            }.execute();
+            Toast.makeText(this, "DR ord hentet", Toast.LENGTH_SHORT).show();
         }
         gæt.setText("");
-        {
-        }
     }
 
 
-    public int getAntalForkerteGæt () {
+
+    public int antalForkerteGæt () {
         return spil.getAntalForkerteBogstaver();
     }
 
@@ -164,5 +182,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void setOrdListe(){
+        /*
+        for (int i = 0; i == spil.getMuligeord().getSize; i++; ((
+            textView = textView + "/n" + spil.getMuligeOrd().get(i)
+        ))
+
+         */
+    }
 }
 

@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class LosingActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView losingWord, losingText;
+    private TextView losingWord, losingText, numberOfTries;
     private Button restartButton;
 
     @Override
@@ -18,6 +18,9 @@ public class LosingActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_losing);
         Bundle b = getIntent().getExtras();
         String losingWordString = b.getString("losingWord");
+        
+        numberOfTries =findViewById(R.id.numberOfTries);
+        numberOfTries.setText("");
 
         losingText = findViewById(R.id.losingText);
         losingText.setText("Du har tabt, ordet var:");

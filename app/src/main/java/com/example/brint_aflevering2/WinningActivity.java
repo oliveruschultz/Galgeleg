@@ -8,11 +8,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 
-public class WinningActivity extends AppCompatActivity {
+public class WinningActivity extends AppCompatActivity implements View.OnClickListener {
 
     private TextView winningWord, winningText, antalGæt;
     private Button restartButton;
-    private String winningWordString,winningTextString;
     private int fejl;
 
     @Override
@@ -20,20 +19,24 @@ public class WinningActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_winning);
         Bundle b = getIntent().getExtras();
-        winningWordString = "Ordet var: \n" + b.getString("ord");
-        fejl = b.getInt("fejl");
-        winningTextString = "Du har vundet!\nMed kun " + fejl + " fejl!";
-        String winningWordString = b.getString("winningWord");
 
         winningText = findViewById(R.id.winningText);
-        winningText.setText("Du har vundet \nOrdet var:");
 
         winningWord = findViewById(R.id.winningWord);
-        winningWord.setText (winningWordString);
+        winningWord.setText (b.getString("winningWord"));
+
+        antalGæt = findViewById(R.id.antalGæt);
+        antalGæt.setText("Ordet var " + b.getString("winningWord") + " , du brugte " + Integer.toString(b.getInt("antalGæt")) + " gæt");
 
 
         restartButton = findViewById(R.id.restartButton);
-        restartButton.setOnClickListener ((View.OnClickListener) this);
+        restartButton.setOnClickListener (this);
 
             }
+
+    @Override
+    public void onClick(View v) {
+        finish();
+
+    }
 }
