@@ -1,5 +1,5 @@
 package com.example.brint_aflevering2;
-
+//samarbejde med Anton Schmidt
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
