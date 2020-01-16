@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         genstart.setOnClickListener(this);
         knapDR = findViewById(R.id.button4);
         knapDR.setOnClickListener(this);
-        listeKnap = findViewById(R.id.button5);
+        listeKnap = findViewById(R.id.listeKnap);
         listeKnap.setOnClickListener(this);
 
 
@@ -139,8 +139,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Toast.makeText(this, "DR ord hentet", Toast.LENGTH_SHORT).show();
 
         } else if (v == listeKnap) {
-            Intent wordListIntet = new Intent(this, ListActivity.class);
-            startActivity(wordListIntet); //ingen activity?
+            Intent intent = new Intent(this, ListActivity.class);
+            startActivity(intent);
         }
 
         gæt.setText("");

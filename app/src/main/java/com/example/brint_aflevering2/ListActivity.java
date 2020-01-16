@@ -13,7 +13,7 @@ public class ListActivity extends AppCompatActivity implements AdapterView.OnIte
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        setContentView(R.layout.activity_word_list);
 
         String ordListe[] = new String[Galgelogik.muligeOrd.size()];
         for (int i = 0; i < ordListe.length; i++) {

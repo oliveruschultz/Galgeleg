@@ -2,6 +2,7 @@ package com.example.brint_aflevering2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -31,6 +32,13 @@ public class LosingActivity extends AppCompatActivity implements View.OnClickLis
         restartButton = findViewById(R.id.restartButton);
         restartButton.setOnClickListener(this);
 
+        playLossSound();
+
+    }
+
+    public void playLossSound() {
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.loosesound);
+        mp.start();
     }
 
     @Override

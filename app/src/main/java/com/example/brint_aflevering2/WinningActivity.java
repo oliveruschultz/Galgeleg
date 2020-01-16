@@ -2,6 +2,7 @@ package com.example.brint_aflevering2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +26,14 @@ public class WinningActivity extends AppCompatActivity implements View.OnClickLi
         restartButton = findViewById(R.id.restartButton);
         restartButton.setOnClickListener (this);
 
-            }
+        playWinSound();
+    }
+
+
+    public void playWinSound() {
+        final MediaPlayer mp = MediaPlayer.create(this, R.raw.winsound);
+        mp.start();
+    }
 
     @Override
     public void onClick(View v) {
