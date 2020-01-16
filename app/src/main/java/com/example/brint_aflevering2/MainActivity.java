@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             startActivity(intent);
         } else if (v == rekord) {
             Intent intent = new Intent(this, HighScore.class);
-            intent.putExtra("Score", wincounter);
+            intent.putExtra("Score", wincounter-losscounter);
             startActivity(intent);
         }
         gæt.setText("");

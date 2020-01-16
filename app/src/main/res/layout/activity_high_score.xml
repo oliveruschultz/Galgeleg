@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="High Score"
+        android:text="Din Score"
         android:textSize="40sp"/>
 
     <TextView
@@ -26,7 +26,7 @@
         android:id="@+id/highScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="High Score: 1"
+        android:text="Højeste Score: 1"
         android:textSize="30sp"
         android:layout_marginTop="50sp"/>
 
