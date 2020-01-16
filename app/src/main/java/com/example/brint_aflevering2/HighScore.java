@@ -1,5 +1,5 @@
 package com.example.brint_aflevering2;
-
+//inspiration fra https://www.youtube.com/watch?v=WYWsVJTmWbY
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
