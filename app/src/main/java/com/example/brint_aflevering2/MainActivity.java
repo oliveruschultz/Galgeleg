@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Galgelogik spil = new Galgelogik();
     private EditText gæt;
-    private Button knap1, givOp, genstart, knapDR, listeKnap;
+    private Button knap1, givOp, genstart, knapDR, listeKnap, rekord;
     private TextView ord, tvBrugteBogstaver,textViewW,textViewL;
     private ImageView imageView;
     int wincounter, losscounter;
@@ -45,6 +45,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         knapDR.setOnClickListener(this);
         listeKnap = findViewById(R.id.listeKnap);
         listeKnap.setOnClickListener(this);
+        rekord = findViewById(R.id.rekord);
+        rekord.setOnClickListener(this);
 
 
         ord.setText(spil.getSynligtOrd());
@@ -141,8 +143,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else if (v == listeKnap) {
             Intent intent = new Intent(this, ListActivity.class);
             startActivity(intent);
+        } else if (v == rekord) {
+            Intent intent = new Intent(this, HighScore.class);
+            intent.putExtra("Score", wincounter);
+            startActivity(intent);
         }
-
         gæt.setText("");
     }
 
